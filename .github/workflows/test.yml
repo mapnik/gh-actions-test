@@ -44,7 +44,12 @@ jobs:
 
       - name: "Setup vcpkg"
         shell: bash
-        run: ./vcpkg/bootstrap-vcpkg
+        run:   |
+         if [ "$RUNNER_OS" == "Windows" ]; then
+              ./vcpkg/bootstrap-vcpkg.bat
+         else
+              ./vcpkg/bootstrap-vcpkg.sh
+         fi
 
       - name: "Setup NuGet Credentials"
         shell: "bash"
