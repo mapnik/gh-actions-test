@@ -30,6 +30,19 @@ jobs:
             preset: "macos-ci"
 
     steps:
+      - name: "Install required system packages"
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            choco install ninja
+          elif [ "$RUNNER_OS" == "Linux"]; then
+            sudo apt-get install -y ninja-build
+          else
+            brew install automake ninja
+          fi
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
       - name: checkout mapnik
         uses: actions/checkout@v2
         with:
@@ -44,12 +57,12 @@ jobs:
 
       - name: "Setup vcpkg"
         shell: bash
-        run:   |
-         if [ "$RUNNER_OS" == "Windows" ]; then
-              ./vcpkg/bootstrap-vcpkg.bat
-         else
-              ./vcpkg/bootstrap-vcpkg.sh
-         fi
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+               ./vcpkg/bootstrap-vcpkg.bat
+          else
+               ./vcpkg/bootstrap-vcpkg.sh
+          fi
 
       - name: "Setup NuGet Credentials"
         shell: "bash"
