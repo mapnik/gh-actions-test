@@ -65,6 +65,7 @@ jobs:
           fi
 
       - name: "Setup NuGet Credentials"
+        if: ${{ !(github.event_name == 'pull_request' || github.repository != 'mapnik/mapnik') }}
         shell: "bash"
         run: >
           ${{ matrix.mono }} `./vcpkg/vcpkg fetch nuget | tail -n 1`
@@ -76,10 +77,31 @@ jobs:
           -password "${{ secrets.VCPKG_CACHE_PAT }}"
 
       - name: "Setup NuGet apikey"
+        if: ${{ !(github.event_name == 'pull_request' || github.repository != 'mapnik/mapnik') }}
         shell: "bash"
         run: >
           ${{ matrix.mono }} `./vcpkg/vcpkg fetch nuget | tail -n 1`
           setapikey "${{ secrets.VCPKG_CACHE_PAT }}" -Source "https://nuget.pkg.github.com/mapnik/index.json"
+
+
+      - name: "Setup NuGet Credentials READONLY"
+        if: ${{ github.event_name == 'pull_request' || github.repository != 'mapnik/mapnik' }}
+        shell: "bash"
+        run: >
+          `./vcpkg/vcpkg fetch nuget | tail -n 1`
+          sources add
+          -source "https://nuget.pkg.github.com/mapnik/index.json"
+          -storepasswordincleartext
+          -name "GitHub"
+          -username "${{ github.actor }}"
+          -password "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: "Setup NuGet apikey READONLY"
+        if: ${{ github.event_name == 'pull_request' || github.repository != 'mapnik/mapnik' }}
+        shell: "bash"
+        run: >
+          `./vcpkg/vcpkg fetch nuget | tail -n 1`
+          setapikey "${{ secrets.GITHUB_TOKEN }}" -Source "https://nuget.pkg.github.com/mapnik/index.json"
 
       - name: Configure CMake
         run: cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake --preset=${{ matrix.preset }}
