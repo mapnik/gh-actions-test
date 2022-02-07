@@ -42,6 +42,10 @@ jobs:
           ref: 2e34a79a814551424d9b1a981b3b110e0a8fbdfd
           path: vcpkg
 
+      - name: "Setup vcpkg"
+        shell: bash
+        run: ./vcpkg/bootstrap-vcpkg
+
       - name: "Setup NuGet Credentials"
         shell: "bash"
         run: >
