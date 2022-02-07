@@ -59,7 +59,7 @@ jobs:
           -source "https://nuget.pkg.github.com/mapnik/index.json"
           -storepasswordincleartext
           -name "GitHub"
-          -username "mapnik"
+          -username "mathisloge"
           -password "${{ secrets.VCPKG_CACHE_PAT }}"
 
       - name: "Setup NuGet apikey"
