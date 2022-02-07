@@ -69,4 +69,4 @@ jobs:
           setapikey "${{ secrets.VCPKG_CACHE_PAT }}" -Source "https://nuget.pkg.github.com/mapnik/index.json"
 
       - name: Configure CMake
-        run: cmake -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake --preset=${{ matrix.preset }}
+        run: cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake --preset=${{ matrix.preset }}
