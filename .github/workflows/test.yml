@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: "microsoft/vcpkg"
-          ref: 2e34a79a814551424d9b1a981b3b110e0a8fbdfd
+          ref: 4415a0f31b5a012ca2efba13cc18e16adefd89c0
           path: vcpkg
 
       - name: "Setup vcpkg"
@@ -104,4 +104,4 @@ jobs:
           setapikey "${{ secrets.GITHUB_TOKEN }}" -Source "https://nuget.pkg.github.com/mapnik/index.json"
 
       - name: Configure CMake
-        run: cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake --preset=${{ matrix.preset }}
+        run: cmake --preset=${{ matrix.preset }}
