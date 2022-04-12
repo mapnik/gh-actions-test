@@ -33,10 +33,11 @@ jobs:
       - name: "Install required system packages"
         shell: bash
         run: |
+          echo $RUNNER_OS
           if [ "$RUNNER_OS" == "Windows" ]; then
             choco install ninja
           elif [ "$RUNNER_OS" == "Linux"]; then
-            sudo apt-get install -y ninja-build
+            sudo apt-get install -y gperf libxxf86vm-dev ninja-build
           else
             brew install automake ninja
           fi
