@@ -106,3 +106,10 @@ jobs:
 
       - name: Configure CMake
         run: cmake --preset=${{ matrix.preset }}
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: logs
+          path: vcpkg/buildtrees/*/*.log
+          retention-days: 2
