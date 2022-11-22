@@ -74,15 +74,15 @@ jobs:
           -source "https://nuget.pkg.github.com/mapnik/index.json"
           -storepasswordincleartext
           -name "GitHub"
-          -username "${{ github.actor }}"
-          -password "${{ secrets.GITHUB_TOKEN }}"
+          -username "mapnik"
+          -password "${{ secrets.VCPKG_CACHE_PAT }}"
 
       - name: "Setup NuGet apikey"
         if: ${{ !(github.event_name == 'pull_request' || github.repository != 'mapnik/gh-actions-test') }}
         shell: "bash"
         run: >
           ${{ matrix.mono }} `./vcpkg/vcpkg fetch nuget | tail -n 1`
-          setapikey "${{ secrets.GITHUB_TOKEN }}" -Source "https://nuget.pkg.github.com/mapnik/index.json"
+          setapikey "${{ secrets.VCPKG_CACHE_PAT }}" -Source "https://nuget.pkg.github.com/mapnik/index.json"
 
 
       - name: "Setup NuGet Credentials READONLY"
