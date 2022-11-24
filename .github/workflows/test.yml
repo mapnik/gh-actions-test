@@ -20,15 +20,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["windows-latest", "ubuntu-latest", "ubuntu-22.04", "macos-latest"]
+        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
         include:
           - os: "windows-latest"
             mono: ""
             preset: "windows-ci"
           - os: "ubuntu-latest"
-            mono: "mono"
-            preset: "linux-ci"
-          - os: "ubuntu-22.04"
             mono: "mono"
             preset: "linux-ci"
           - os: "macos-latest"
