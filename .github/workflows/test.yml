@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: "microsoft/vcpkg"
-          ref: a960fde0b60b6392d70375fe513dfa7eb083cc3a
+          ref: 6a349fe1fbea1e5fcda2e0775f555d829a5e82df
           path: vcpkg
 
       - name: "Setup vcpkg"
